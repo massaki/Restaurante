@@ -1,0 +1,20 @@
+class Restaurante < ActiveRecord::Base
+	validates_presence_of :nome, :message => "Campo nao pode ser nulo " #porem o ideal seria utilizar a lib de internacionalizacao.
+	validates_presence_of :endereco, :message => "Deve ser preenchido"
+	validates_presence_of :especialidade, :message => "Deve ser preenchido"
+	validates_uniqueness_of :nome, :message => "Já cadastrado"
+	validates_uniqueness_of :endereco, :message => "Já cadastrado"
+	
+	validate :primeira_letra_maiuscula
+	
+	has_many :qualificacoes
+	has_and_belongs_to_many :pratos
+	has_many :comentarios
+	
+	private
+		def primeira_letra_maiuscula 
+			unless /^[A-Z].*/ =~ nome
+			errors.add(:nome, "A primeira letra do nome de ser Maiúscula.")
+		end
+	end
+end

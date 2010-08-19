@@ -1,0 +1,5 @@
+Class HelloController < AplicationController
+	def index
+		reader :text => "olá"
+	end
+end
